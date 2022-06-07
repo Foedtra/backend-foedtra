@@ -34,6 +34,8 @@ POST /places
 
 GET /places
 
+GET /places?name=
+
 GET /places/:placeId
 
 PATCH /places/:placeId
@@ -44,6 +46,10 @@ DELETE /places/:placeId
 POST /foods
 
 GET /foods
+
+GET /foods?name=
+
+GET /foods?from=
 
 GET /foods/:foodId
 
