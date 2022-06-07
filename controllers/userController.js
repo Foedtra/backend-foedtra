@@ -1,54 +1,52 @@
-const {
-  auth,
-} = require('../configs/config');
+// const {
+//   auth,
+// } = require('../configs/config');
 
 // This is just testing Because we use only use Google Account for login/signup
 
-const userSignUp = async (req, res) => {
-  try {
-    const {
-      displayName,
-      email,
-      password,
-      role,
-    } = req.body;
-    const {uid} = await auth.createUser({
-      displayName,
-      email,
-      password,
-    });
-    await auth.setCustomUserClaims(uid, {role});
-
-    return res.status(200).send({uid});
-  } catch (error) {
-    return res.status(400).send('SignUp Error', error);
-  };
-};
-
-// const userSignOut = async (req, res) => {
-//   await auth.signOut().then(() => {
-//     return res.send('User Signed Out');
-//   }).catch((error) => {
-//     return res.status(400).send('Sign out Error', error);
-//   });
-// };
-
-// const getAllUser = async (req, res) => {
+// const createUser = async (req, res) => {
 //   try {
-//     const listUsers = await auth.listUsers()
-//     const users = listUsers.users.map(mUser)
-//   } catch(error) {
-//     res.status(400).send('Fail to get User')
-//   }
+//     const {
+//       displayName,
+//       email,
+//       password,
+//       role,
+//     } = req.body;
+//     const {uid} = await auth.createUser({
+//       displayName,
+//       email,
+//       password,
+//     });
+//     await auth.setCustomUserClaims(uid, {role});
+
+//     return res.status(200).send({uid});
+//   } catch (error) {
+//     return res.status(400).send('SignUp Error', error);
+//   };
 // };
 
-// const mUser = (user) => {
-//   user = auth.listUsers;
-//   const customClaims = (user.customClaims || )
-// }
+// const listAllUsers = (nextPageToken) => {
+//   // List batch of users, 1000 at a time.
+//   auth
+//       .listUsers(1000, nextPageToken)
+//       .then((listUsersResult) => {
+//         listUsersResult.users.forEach((userRecord) => {
+//           console.log('user', userRecord.toJSON());
+//         });
+//         if (listUsersResult.pageToken) {
+//         // List next batch of users.
+//           listAllUsers(listUsersResult.pageToken);
+//         }
+//       })
+//       .catch((error) => {
+//         console.log('Error listing users:', error);
+//       });
+// };
+// // Start listing users from the beginning, 1000 at a time.
 
-module.exports = {
-  userSignUp,
-  // userSignIn,
-  // userSignOut,
-};
+// module.exports = {
+//   createUser,
+//   listAllUsers,
+//   // userSignIn,
+//   // userSignOut,
+// };

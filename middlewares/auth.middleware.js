@@ -4,7 +4,7 @@ const {
 
 // admin.auth().verifyIdToken(idToken);
 
-module.exports = validateAuthToken = async (req, res, next) => {
+const validateAuthToken = async (req, res, next) => {
   console.log('Checking request if authorized with Firebase ID Token');
   // if no Token was passed
   if ((!req.headers.authorization ||
@@ -21,6 +21,7 @@ module.exports = validateAuthToken = async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer ')) {
     console.log('Authorization header was Found');
     authToken = req.headers.authorization.split('Bearer ')[1];
+    console.log(authToken);
   } else if (req.cookies) {
     console.log('Cookie Session was Found');
     // store token from cookie
@@ -38,8 +39,8 @@ module.exports = validateAuthToken = async (req, res, next) => {
     res.locals = {
       ...res.locals,
       uid: decodedToken.uid,
-      role: decodedToken.role,
-      email: decodedToken.email};
+      email: decodedToken.email,
+    };
     return next();
   } catch (error) {
     console.error(error);
@@ -48,24 +49,48 @@ module.exports = validateAuthToken = async (req, res, next) => {
   }
 };
 
-// const isAuthorized = ( req, res, optionsRole) => {
-//   optionsRole = {hasRole: ['admin' | 'manager' | 'user'], isAllow: Boolean};
-//   const {uid, email, role} = res.locals;
-//   const {id} = req.params;
-
-//   if (optionsRole.isAllow && id && uid === id) {
-//     return next();
-//   }
-//   if (!role) {
-//     return res.status(403).send('user doesnt have role');
-//   }
-//   if (optionsRole.optionsRole.includes(role)) {
-//     return next();
-//   }
-//   return;
+// try {
+//  const decodedToken = await auth.verifyIdToken(authToken);
+//  console.log('Token has been decoded', decodedToken);
+//  req.user = decodedToken;
+//  res.locals = {
+//    ...res.locals,
+//    uid: decodedToken.uid,
+//    role: decodedToken.role,
+//    email: decodedToken.email};
+//  return next();
+// } catch (error) {
+//  console.error(error);
+//  res.status(403).send('Unauthorized');
+//  return;
+// }
 // };
 
-// module.exports = {
-//   validateAuthToken,
-//   isAuthorized,
+// const isAuthorized = (optionsRole) => {
+//   optionsRole = {hasRole: ['admin' | 'user'], isAllow: Boolean};
+//   return (req, res) => {
+//     const {uid, email, role} = res.locals;
+//     const {id} = req.params;
+
+//     if (email === 'foedtra-root@gmail.com') {
+//       return next();
+//     }
+
+//     if (optionsRole.isAllow && id && uid === id) {
+//       return next();
+//     }
+//     if (!role) {
+//       return res.status(403).send('user doesnt have role');
+//     }
+//     if (optionsRole.optionsRole.includes(role)) {
+//       return next();
+//     }
+//     return res.status(403).send('User Error');
+//   };
 // };
+
+module.exports = {
+  validateAuthToken,
+  // isAuthorized,
+};
+

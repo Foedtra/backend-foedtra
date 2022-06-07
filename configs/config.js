@@ -9,7 +9,7 @@ const auth = admin.auth();
 const db = admin.firestore();
 const dbUsers = db.collection('users');
 const dbFoods = db.collection('foods');
-const dbPlaceConts = db.collection('placeConts');
+const dbPlaces = db.collection('placeConts');
 
 module.exports = {
   admin,
@@ -18,5 +18,5 @@ module.exports = {
   db,
   dbUsers,
   dbFoods,
-  dbPlaceConts,
+  dbPlaces,
 };

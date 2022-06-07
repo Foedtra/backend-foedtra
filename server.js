@@ -4,29 +4,38 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config({path: './.env'});
 // const cookieParser = require('cookie-parser')();
+// const {
+//   createUser,
+//   listAllUsers,
+// } = require('./controllers/userController');
 const {
-  userSignUp,
-} = require('./controllers/userController');
-const {
+  addFood,
   getAllFood,
-  getDetailFoodParams,
+  getDetailFood,
   getFoodPredict,
 } = require('./controllers/foodController');
 
 // const {auth} = require('./configs/config');
 
-const {validateAuthToken} = require('./middlewares/auth.middleware');
+const {
+  validateAuthToken,
+  // isAuthorized,
+} = require('./middlewares/auth.middleware');
 
-// const {authMiddleware} = require('./middlewares/auth.middleware');
+// const authMiddleware = require('./middlewares/auth.middleware');
 
 
 const {
-  addPlaceCont,
-  getAllPlaceCont,
-  getDetailPlaceCont,
-  editPlaceCont,
-  deletePlaceCont,
+  addPlace,
+  getAllPlace,
+  getDetailPlace,
+  editPlace,
+  deletePlace,
+  // getMyPlace,
+  // editMyPlaceCont,
+  // deleteMyPlaceCont,
 } = require('./controllers/placeController');
+
 
 const bodyParser = require('body-parser');
 
@@ -43,43 +52,54 @@ app.use(bodyParser.urlencoded({
 
 app.use(validateAuthToken);
 
-// auth.onAuthStateChanged((user) => {
-//   if (user) {
-//     console.log('user logged in: ', user);
-//   } else {
-//     console.log('user logged out');
-//   }
-// });
-// User
-// app.post('user/signup', );
-// app.post('user/signin', userSignIn);
-// app.post('user/signout', userSignOut);
-
-app.get('/users' ); // List All Users for Only Admins
-app.post('/users',
-    // validateAuthToken,
-    // isAuthorized({option: ['admin', 'manager']}),
-    userSignUp,
-); // Create Users for Only Admins
-app.get('/users/:id' ); // admin and user with same id have access
-app.patch('/users/:id'); // admin and user with same id have access
-app.delete('/users/:id'); // admin and user with same id have access
+// app.get('/users',
+//     // isAuthorized({option: ['admin']}),
+//     listAllUsers,
+// ); // Get Users for Only Admins
+// app.post('/users',
+//     isAuthorized({option: ['admin']}),
+//     createUser,
+// ); // Create Users for Only Admins
+// app.get('/users/:id',
+//     isAuthorized({option: ['admin']}),
+// ); // admin and user with same id have access
+// app.patch('/users/:id',
+//     isAuthorized({option: ['admin']}),
+// ); // admin and user with same id have access
+// app.delete('/users/:id',
+//     isAuthorized({option: ['admin']}),
+// ); // admin and user with same id have access
 
 // Food
-app.post('/predict', getFoodPredict);
-app.get('/foods', getAllFood);
-app.get('/foods/:foodId', getDetailFoodParams);
+app.post('/predict', getFoodPredict); // admin and user have access
+app.post('/foods',
+    addFood,
+    // isAuthorized({option: ['admin']}),
+); // Only Admins
+app.get('/foods', getAllFood); // admin and user have access
+app.get('/foods/:foodId', getDetailFood); // admin and user have access
 // Auth
-// Place
-app.post('/placeConts', addPlaceCont);
-app.get('/placeConts', getAllPlaceCont);
-app.get('/placeConts/:placeId', getDetailPlaceCont);
-app.patch('/placeConts/:placeId', editPlaceCont);
-app.delete('/placeConts/:placeId', deletePlaceCont);
+
+// Food Place
+app.post('/placeConts',
+    addPlace); // admin and user have access
+app.get('/placeConts',
+    getAllPlace); // admin and user have access
+app.get('/placeConts/:placeId',
+    getDetailPlace); // admin & user have access
+app.patch('/placeConts/:placeId',
+    editPlace); // for Only Admins
+app.delete('/placeConts/:placeId',
+    deletePlace); // for Only Admins
+
+// MyPlace
+// admin & user with same id have access
+// app.get('/myPlace/:uid', getMyPlace);
+// app.patch('/myPlace/:uid', editMyPlaceCont);
+// app.delete('/myPlaces/:uid', deleteMyPlaceCont);
 
 // app.post('/idToken', getToken);
 // app.use(cookieParser);
-// app.use(validateFirebaseIdToken);
 app.get('/hello', (req, res) => {
   // @ts-ignore
   res.send(`Hello ${req.user.name}`);
