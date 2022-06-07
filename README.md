@@ -7,12 +7,12 @@ This Repository conatains a Backend Documenation for Foedtra App
 Firebase SDK, ServiceAccontKey & Google Maps API 
 
 ## Documentation for Developing this Backend
-
-- Firebase SDK
+- javascript : https://www.javascript.com/
+- Express JS : https://expressjs.com/
+- Firebase SDK : https://firebase.google.com/docs/admin/setup
 - Firebase Auth : https://firebase.google.com/docs/auth
-- Firestore Native
-- Google Maps API 
-- Express JS
+- Cloud Firestore Native : https://firebase.google.com/docs/firestore
+- Google Maps API : https://developers.google.com/maps
 
 ## Install All Package 
 
@@ -28,19 +28,29 @@ npm install
 ## Verify Token Firebase Auth
 
 
-## User - Only for Admins
-
-
 ## Place
 
+POST /places 
+
+GET /places
+
+GET /places/:placeId
+
+PATCH /places/:placeId
+
+DELETE /places/:placeId
 
 ## Food
+POST /foods
 
+GET /foods
+
+GET /foods/:foodId
 
 ## Predict
 
+POST /predict
 
-## Package 
 
 
 

@@ -81,15 +81,15 @@ app.get('/foods/:foodId', getDetailFood); // admin and user have access
 // Auth
 
 // Food Place
-app.post('/placeConts',
+app.post('/places',
     addPlace); // admin and user have access
-app.get('/placeConts',
+app.get('/places',
     getAllPlace); // admin and user have access
-app.get('/placeConts/:placeId',
+app.get('/places/:placeId',
     getDetailPlace); // admin & user have access
-app.patch('/placeConts/:placeId',
+app.patch('/places/:placeId',
     editPlace); // for Only Admins
-app.delete('/placeConts/:placeId',
+app.delete('/places/:placeId',
     deletePlace); // for Only Admins
 
 // MyPlace
