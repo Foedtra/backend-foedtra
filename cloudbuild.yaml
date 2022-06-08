@@ -9,6 +9,5 @@ steps:
         "${_REGISTRY_URL}/$PROJECT_ID/${_REGISTRY}/backend-foedtra:latest",
         "."
       ]
-      
 options:
-  logging: GCS_ONLY
+  logging: NONE
