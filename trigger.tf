@@ -1,4 +1,4 @@
-resource "google_cloudbuild_trigger" "backend-trigger" {
+resource "google_cloudbuild_trigger" "my-trigger" {
   provider = google-beta
   name = "backend-foedtra"
 
