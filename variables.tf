@@ -1,5 +1,5 @@
 variable "region" {
- default = "global"
+ default = "asia-southeast2"
 }
 
 variable "github_repository" {
