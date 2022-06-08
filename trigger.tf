@@ -10,5 +10,10 @@ resource "google_cloudbuild_trigger" "my-trigger" {
    }
   }
 
+  substitutions = {
+    _REGISTRY = google_artifact_registry_repository.backend-foedtra.repository_id
+    _REGISTRY_URL = "${var.region}-docker.pkg.dev"
+  }
+
   filename = "cloudbuild.yaml"
 }
