@@ -50,47 +50,48 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 
+// Auth
 app.use(validateAuthToken);
 
 // app.get('/users',
-//     // isAuthorized({option: ['admin']}),
+//     // isAuthorized({role: ['admin']}),
 //     listAllUsers,
 // ); // Get Users for Only Admins
 // app.post('/users',
-//     isAuthorized({option: ['admin']}),
+//     isAuthorized({role: ['admin']}),
 //     createUser,
 // ); // Create Users for Only Admins
 // app.get('/users/:id',
-//     isAuthorized({option: ['admin']}),
+//     isAuthorized({role: ['admin']}),
 // ); // admin and user with same id have access
 // app.patch('/users/:id',
-//     isAuthorized({option: ['admin']}),
+//     isAuthorized({role: ['admin']}),
 // ); // admin and user with same id have access
 // app.delete('/users/:id',
-//     isAuthorized({option: ['admin']}),
+//     isAuthorized({role: ['admin']}),
 // ); // admin and user with same id have access
 
 // Food
-app.post('/predict', getFoodPredict); // admin and user have access
+app.post('/predict', getFoodPredict);
 app.post('/foods',
     addFood,
-    // isAuthorized({option: ['admin']}),
+    // isAuthorized({role: ['admin']}),
 ); // Only Admins
-app.get('/foods', getAllFood); // admin and user have access
-app.get('/foods/:foodId', getDetailFood); // admin and user have access
-// Auth
+app.get('/foods', getAllFood);
+app.get('/foods/:foodId', getDetailFood);
+
 
 // Food Place
 app.post('/places',
-    addPlace); // admin and user have access
+    addPlace);
 app.get('/places',
-    getAllPlace); // admin and user have access
+    getAllPlace);
 app.get('/places/:placeId',
-    getDetailPlace); // admin & user have access
+    getDetailPlace);
 app.patch('/places/:placeId',
-    editPlace); // for Only Admins
+    editPlace);
 app.delete('/places/:placeId',
-    deletePlace); // for Only Admins
+    deletePlace);
 
 // MyPlace
 // admin & user with same id have access
@@ -98,7 +99,6 @@ app.delete('/places/:placeId',
 // app.patch('/myPlace/:uid', editMyPlaceCont);
 // app.delete('/myPlaces/:uid', deleteMyPlaceCont);
 
-// app.post('/idToken', getToken);
 // app.use(cookieParser);
 app.get('/hello', (req, res) => {
   // @ts-ignore
