@@ -1,5 +1,5 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: "gcr.io/cloud-builders/docker"
     args: 
       [
         "build",
@@ -8,6 +8,29 @@ steps:
         "-t",
         "${_REGISTRY_URL}/$PROJECT_ID/${_REGISTRY}/backend-foedtra:latest",
         "."
+      ]
+# push container image to 
+- name: "gcr.io/cloud-builders/docker"
+  args: ["push", "${_REGISTRY_URL}/$PROJECT_ID/${_REGISTRY}/backend-foedtra"]
+# to deploy container
+- name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      [
+        "run",
+        "deploy",
+        "backend-foedtra",
+        "--project",
+        "${_PROJECT_NAME}",
+        "--platform",
+        "managed",
+        "--region",
+        "${_REGION}",
+        "--image",
+        "${_REGISTRY_URL}/$PROJECT_ID/${_REGISTRY}/backend-foedtra:$SHORT_SHA",
+        "--port",
+        "3000",
+        "--allow-unauthenticated",
       ]
 options:
   logging: NONE
