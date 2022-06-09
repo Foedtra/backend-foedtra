@@ -4,13 +4,13 @@ resource "google_project_service" "service" {
  ])
  service = each.key
  
- project = var.project
+ project = _PROJECT_NAME
  disable_on_destroy = false
 }
 
 resource "google_artifact_registry_repository" "backend-foedtra" {
  provider = google-beta
- location = var.region
+ location = _REGION
  repository_id = "backend-foedtra"
  format = "DOCKER"
  depends_on = [google_project_service.service["artifactregistry.googleapis.com"]]

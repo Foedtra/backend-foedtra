@@ -10,7 +10,7 @@ resource "google_project_service" "service" {
 
     service = each.key
 
-    project            = var.project
+    project = var.project
     disable_on_destroy = false
 }
 
