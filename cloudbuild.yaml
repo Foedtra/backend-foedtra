@@ -3,6 +3,7 @@ steps:
     args:
       [
         "build",
+        --network=cloudbuild,
         "-t",
         "${_REGISTRY_URL}/$PROJECT_ID/${_REGISTRY}/backend-foedtra:$SHORT_SHA",
         "-t",

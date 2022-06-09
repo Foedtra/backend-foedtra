@@ -11,6 +11,7 @@ resource "google_project_service" "service" {
 
 resource "google_artifact_registry_repository" "backend-foedtra" {
  provider = google-beta
+ project = var.project
  location = var.region
  repository_id = "backend-foedtra"
  format = "DOCKER"
