@@ -13,4 +13,5 @@ resource "google_artifact_registry_repository" "backend-foedtra" {
  location = var.region
  repository_id = "backend-foedtra"
  format = "DOCKER"
+ depends_on = [google_project_service.service["artifactregistry.googleapis.com"]]
 }
