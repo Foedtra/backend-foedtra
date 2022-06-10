@@ -31,9 +31,9 @@ steps:
         "${_REGISTRY_URL}/$PROJECT_ID/${_REGISTRY}/backend-foedtra:$SHORT_SHA",
         "--port",
         "8080",
-        "--set-secrets"
+        "--set-secrets",
         "URL_PREDICT=URL_PREDICT:latest",
-        "--set-secrets"
+        "--set-secrets",
         "API_KEY_MAPS=API_KEY_MAPS:latest",
         "--allow-unauthenticated",
       ]
