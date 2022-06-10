@@ -37,7 +37,7 @@ resource "google_project_iam_member" "cloudbuild-iam" {
 #     ]
 # }
 
-resource "google_cloudbuild_trigger" "my-trigger" {
+resource "google_cloudbuild_trigger" "backend-foedtra" {
   provider = google-beta
   name = "backend-foedtra"
   project = var.project
