@@ -1,9 +1,6 @@
 const admin = require('firebase-admin');
-const credentials = require('../serviceAccountKey.json');
 
-admin.initializeApp({
-  credential: admin.credential.cert(credentials),
-});
+admin.initializeApp();
 
 const auth = admin.auth();
 const db = admin.firestore();
@@ -13,7 +10,6 @@ const dbPlaces = db.collection('placeConts');
 
 module.exports = {
   admin,
-  credentials,
   auth,
   db,
   dbUsers,

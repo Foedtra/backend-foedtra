@@ -16,7 +16,7 @@ const addPlace = async (req, res) => {
 
   const uid = res.locals.uid;
   // example image marker
-  const icon = `https://firebasestorage.googleapis.com/v0/b/foedtra-app.appspot.com/o/Location.png?alt=media&token=${process.env.TOKEN_IMG}`;
+  const icon = 'https://firebasestorage.googleapis.com/v0/b/foedtra-app.appspot.com/o/Location.png?alt=media&token=8ba1d63e-a698-4f39-87cf-4c8b7bd1c01a';
 
   const newPlace = {
     uid,
