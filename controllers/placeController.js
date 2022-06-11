@@ -33,7 +33,7 @@ const addPlace = async (req, res) => {
 
   try {
     await dbPlaces.doc().set(newPlace);
-    res.send('Data User Berhasil Tersimpan');
+    res.send('Food place stored successfully');
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -41,17 +41,17 @@ const addPlace = async (req, res) => {
 
 // Get All Place
 const getAllPlace = async (req, res) => {
-  const placeConts = [];
+  const places = [];
   const {name} = req.query;
   await dbPlaces.get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-      placeConts.push({
+      places.push({
         id: doc.id,
         ...doc.data(),
       });
     });
   }).catch((error) => {
-    return res.status(400).send('Data gagal dibaca', error);
+    return res.status(400).send('Failed to read data', error);
   });
   const filterQuery = (placesQ) => ({
     status: 'success',
@@ -68,28 +68,28 @@ const getAllPlace = async (req, res) => {
   // Display Food Place by name
   if (name) {
     const lowerName = name.toLowerCase();
-    let filterName = placeConts
-        .filter((placeCont) =>
-          placeCont.placeName.toLowerCase().includes(lowerName));
+    let filterName = places
+        .filter((place) =>
+          place.placeName.toLowerCase().includes(lowerName));
     filterName = filterQuery(filterName);
     return res
         .status(200)
         .send({...filterName});
   }
 
-  if (placeConts.length > 0) {
+  if (places.length > 0) {
     return res
         .status(200)
         .send({
           status: 'succes',
           data: {
-            placeConts: placeConts.map((placeConts) =>({
-              id: placeConts.placeId,
-              uid: placeConts.uid,
-              name: placeConts.placeName,
-              lat: placeConts.lat,
-              lng: placeConts.lng,
-              icon: placeConts.icon,
+            places: places.map((places) =>({
+              id: places.placeId,
+              uid: places.uid,
+              name: places.placeName,
+              lat: places.lat,
+              lng: places.lng,
+              icon: places.icon,
             })),
           },
         });
@@ -99,17 +99,17 @@ const getAllPlace = async (req, res) => {
       .send({
         status: 'succes',
         data: {
-          placeConts,
+          places,
         },
       });
 };
 
 const getDetailPlace = async (req, res, next) => {
   const {placeId} = req.params;
-  const placeCont = [];
+  const place = [];
   await dbPlaces.doc(placeId).get().then((doc) => {
     if (doc.exists) {
-      placeCont.push({
+      place.push({
         id: doc.id,
         ...doc.data(),
       });
@@ -118,25 +118,25 @@ const getDetailPlace = async (req, res, next) => {
           .send({
             status: 'success',
             data: {
-              placeCont: placeCont.map((placeCont) => ({
-                id: placeCont.placeId,
-                uid: placeCont.uid,
-                placeImage: placeCont.placeImage,
-                placeName: placeCont.placeName,
-                placeDesc: placeCont.placeDesc,
-                placeMenu: placeCont.placeMenu,
-                contact: placeCont.contact,
-                lat: placeCont.lat,
-                lng: placeCont.lng,
-                icon: placeCont.icon,
+              place: place.map((place) => ({
+                id: place.placeId,
+                uid: place.uid,
+                placeImage: place.placeImage,
+                placeName: place.placeName,
+                placeDesc: place.placeDesc,
+                placeMenu: place.placeMenu,
+                contact: place.contact,
+                lat: place.lat,
+                lng: place.lng,
+                icon: place.icon,
               })),
             },
           });
     } else {
-      return res.status(404).send('Makanan yang Dicari Tidak ada !');
+      return res.status(404).send('Place not found !');
     }
   }).catch((error) => {
-    return res.status(400).send('Data gagal dibaca', error);
+    return res.status(400).send('Failed to read data', error);
   });
 };
 
@@ -163,10 +163,10 @@ const editPlace = async (req, res) => {
   };
   await dbPlaces.doc(placeId).update(updateContent).then((doc) => {
     if (doc.exists) {
-      res.status(200).send('data berhasil di update :', updateContent);
+      res.status(200).send('Place has been updated :', updateContent);
     }
   }).catch((error) => {
-    return res.status(400).send('Data gagal diupdate', error);
+    return res.status(400).send('Failed to update Place', error);
   });
 };
 
@@ -175,12 +175,12 @@ const deletePlace = async (req, res) => {
   const {placeId} = req.params;
   await dbPlaces.doc(placeId).delete().whe.then((doc) => {
     if (doc.exists) {
-      return res.code(200).send('Data berhasil dihapus');
+      return res.code(200).send('Place has been delete');
     } else {
-      return res.code(404).send('Data tidak ditemukan');
+      return res.code(404).send('Place not found');
     }
   }).catch((error) => {
-    return res.status(400).send('Data gagal dihapus', error);
+    return res.status(400).send('Failed to delete place', error);
   });
 };
 
@@ -217,12 +217,12 @@ const deletePlace = async (req, res) => {
 // };
 
 // // edit UserPlace
-// const editMyPlaceCont = async (req, res) => {
+// const editMyplace = async (req, res) => {
 
 // };
 
 // // delete UserPlace
-// const deleteMyPlaceCont = async (req, res) => {
+// const deleteMyplace = async (req, res) => {
 //   await dbPlaces.doc(placeId).delete();
 //   return res.code(200).send('Data berhasil dihapus');
 // };
@@ -236,6 +236,6 @@ module.exports = {
   deletePlace,
   // addMyPlace,
   // getMyPlace,
-  // editMyPlaceCont,
-  // deleteMyPlaceCont,
+  // editMyplace,
+  // deleteMyplace,
 };

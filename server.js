@@ -32,9 +32,9 @@ const {
   editPlace,
   deletePlace,
   // getMyPlace,
-  // editMyPlaceCont,
-  // deleteMyPlaceCont,
-} = require('./controllers/placeController');
+  // editMyplace,
+  // deleteMyplace,
+} = require('./controllers/placeroller');
 
 
 const bodyParser = require('body-parser');
@@ -96,8 +96,8 @@ app.delete('/places/:placeId',
 // MyPlace
 // admin & user with same id have access
 // app.get('/myPlace/:uid', getMyPlace);
-// app.patch('/myPlace/:uid', editMyPlaceCont);
-// app.delete('/myPlaces/:uid', deleteMyPlaceCont);
+// app.patch('/myPlace/:uid', editMyplace);
+// app.delete('/myPlaces/:uid', deleteMyplace);
 
 // app.use(cookieParser);
 app.get('/hello', (req, res) => {
