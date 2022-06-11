@@ -17,7 +17,7 @@ const addFood = async (req, res) => {
     linkArtikel,
   };
   try {
-    await dbFoods.doc('33').set(newFood);
+    await dbFoods.doc().set(newFood);
     res.send('Food stored successfully');
   } catch (error) {
     res.status(400).send(error.message);
