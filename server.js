@@ -34,7 +34,7 @@ const {
   // getMyPlace,
   // editMyplace,
   // deleteMyplace,
-} = require('./controllers/placeroller');
+} = require('./controllers/placeController');
 
 
 const bodyParser = require('body-parser');
