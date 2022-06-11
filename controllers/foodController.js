@@ -18,7 +18,7 @@ const addFood = async (req, res) => {
   };
   try {
     await dbFoods.doc('33').set(newFood);
-    res.send('Data User Berhasil Tersimpan');
+    res.send('Food stored successfully');
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -38,7 +38,7 @@ const getAllFood = async (req, res) => {
   }).catch((error) => {
     return res
         .status(400)
-        .send('Data gagal di baca', error);
+        .send('Failed to read data', error);
   });
 
   const filterQuery = (foodsQ) => ({
@@ -123,10 +123,10 @@ const getDetailFood= async (req, res) => {
             },
           });
     } else {
-      return res.status(404).send('Makanan yang Dicari Tidak ada !');
+      return res.status(404).send('Food not found !');
     }
   }).catch((error) => {
-    return res.status(400).send('Data gagal di baca', error);
+    return res.status(400).send('Failed to read data', error);
   });
 };
 
