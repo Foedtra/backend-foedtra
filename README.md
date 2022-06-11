@@ -24,147 +24,294 @@ This Repository conatains a Backend Documenation for Foedtra App
 
 ## Verify Token Firebase Auth
 
-## Header : 
-### ```Authorization : Bearer {tokenId}```
 
  # HTTP request methods & URL PATH
-## Place
-
-### ```POST   /places```
+## Header : 
+### ```Authorization : Bearer {tokenId}```
+ ## Predict
+### ```POST   /predict```
  #### Content-Type: application/json
+ #### Body :
  ```
+ {
+  "image" : "{{image in base64 format}}",
+  "lat" : "{{latitude}}",
+  "lng" : "{{longtitude}}"
+ }
  ```
-  #### Result:
-```
+#### Response :
+ ```
 {
- food place stored successfully
+    "status" : "success",
+    "data" : {
+        "predict": [
+            {
+                "name": "Kunyit Asam",
+                "from": "Jawa Tengah",
+                "desc": "Jamu Kunyit asam adalah jamu yang berbahan dasar kunyit, dan asam jawa yang konon berkhasiat untuk menyegarkan tubuh atau dapat membuat tubuh menjadi dingin.",
+                "source": "https://id.wikipedia.org/wiki/Kunir_asem",
+                "restaurants": [
+                    {
+                        "name": "Pawon Jawa Timuran",
+                        "geometry": {
+                            "location": {
+                                "lat": -6.3946662,
+                                "lng": 106.9349105
+                            },
+                            "viewport": {
+                                "northeast": {
+                                    "lat": -6.393255820107277,
+                                    "lng": 106.9362566298927
+                                },
+                                "southwest": {
+                                    "lat": -6.395955479892721,
+                                    "lng": 106.9335569701073
+                                }
+                            }
+                        },
+                        "place_id": "ChIJdTMps0-VaS4Rpbh-LKksJIA",
+                        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+                        "distance": 4.5
+                    },
+                    {
+                        "name": "Filosofi Jamu (Virtual Cafe)",
+                        "geometry": {
+                            "location": {
+                                "lat": -6.3533756,
+                                "lng": 106.9305177
+                            },
+                            "viewport": {
+                                "northeast": {
+                                    "lat": -6.352009120107278,
+                                    "lng": 106.9318745298927
+                                },
+                                "southwest": {
+                                    "lat": -6.354708779892722,
+                                    "lng": 106.9291748701073
+                                }
+                            }
+                        },
+                        "place_id": "ChIJ2-Z2jmqTaS4RlMOmm749ieo",
+                        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+                        "distance": 5.9
+                    },
+                    ...
+                ]
+            }
+        ]
+    }
 }
-```
-### ```GET   /places```
- #### Result:
- ```
-```
-### ```GET   /places?name=```
- #### Result:
- ```
-```
-### ```GET   /places/:placeId```
- #### Result:
- ```
-```
-### ```PATCH   /places/:placeId```
- #### Content-Type: application/json
- ```
- ```
- #### Result:
- ```
-```
-### ```DELETE   /places/:placeId```
 
+```
 ## Food
 ### ```POST   /foods```
  #### Content-Type: application/json
+ #### Body :
  ```
+ {
+    "namaMakanan": "{{namaMakanan}}",
+    "asalProvinsi": "{{asalProvinsi}}",
+    "deskripsi": "{{deskripsi}}",
+    "linkArtikel": "{{linkArtike}}"
+}
  ```
-#### Result:
+#### Response :
  ```
+{
+    "status": "success",
+    "message": "Food stored successfully"
+}
 ```
 ### ```GET   /foods```
-#### Result:
+#### Response :
  ```
-
  {
     "status": "success",
     "data": {
         "foods": [
-         {
-          "asalProvinsi": "Jawa Tengah",
-          "deskripsi": "Minuman khas Jawa yang terbuat dari tepung beras ataupun tepung beras ketan, disajikan dengan es parut serta gula merah cair dan santan. Rasa minuman ini manis dan gurih.",
-          "linkArtikel": "https://id.wikipedia.org/wiki/Dawet",
-          "namaMakanan": "Es Dawet"
-         }
+            ...
+            {
+                "id": "4",
+                "name": "Bika Ambon",
+                "from": "Sumatera Utara"
+            },
+            {
+                "id": "5",
+                "name": "Bir Pletok",
+                "from": "DKI Jakarta"
+            },
+            {
+                "id": "6",
+                "name": "Bubur Manado",
+                "from": "Sulawesi Utara"
+            },
+            ...
         ]
-    },
-    ...
+    }
 }
 ```
 ### ```GET   /foods?name=```
-#### Result:
- ```
-```
-### ```GET   /foods?from=```
-#### Result:
- ```
-```
-### ```GET   /foods/:foodId```
-#### Result:
- ```
-
-```
-## Predict
-### ```POST   /predict```
- #### Content-Type: application/json
+#### Response :
  ```
  {
-  "image" : "{image in base64 format}",
-  "lat" : "{latitude}",
-  "lng" : "{longtitude}"
- }
- ```
-#### Result:
- ```
-{
-    "asalProvinsi": "Jawa Tengah",
-    "deskripsi": "Jamu Kunyit asam adalah jamu yang berbahan dasar kunyit, dan asam jawa yang konon berkhasiat untuk menyegarkan tubuh atau dapat membuat tubuh menjadi dingin.",
-    "keyword": "kunyit_asam",
-    "linkArtikel": "https://id.wikipedia.org/wiki/Kunir_asem",
-    "namaMakanan": "Kunyit Asam",
-    "restaurants": [
-        {
-            "name": "Pecel Pincuk Bu Ida",
-            "geometry": {
-                "location": {
-                    "lat": -6.352490899999999,
-                    "lng": 106.9639982
-                },
-                "viewport": {
-                    "northeast": {
-                        "lat": -6.351092720107277,
-                        "lng": 106.9653892298927
-                    },
-                    "southwest": {
-                        "lat": -6.353792379892721,
-                        "lng": 106.9626895701073
-                    }
-                }
-            },
-            "place_id": "ChIJ-3ANa6GTaS4R8pAVkcM6z5k",
-            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
-            "distance": 3.6
-        },
-        {
-            "name": "Pawon Jawa Timuran",
-            "geometry": {
-                "location": {
-                    "lat": -6.3946662,
-                    "lng": 106.9349105
-                },
-                "viewport": {
-                    "northeast": {
-                        "lat": -6.393255820107277,
-                        "lng": 106.9362566298927
-                    },
-                    "southwest": {
-                        "lat": -6.395955479892721,
-                        "lng": 106.9335569701073
-                    }
-                }
-            },
-            "place_id": "ChIJdTMps0-VaS4Rpbh-LKksJIA",
-            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
-            "distance": 4.5
-        },
-    ]
+    "status": "success",
+    "data": {
+        "foods": [
+            {
+                "id": "17",
+                "name": "Kunyit Asam",
+                "from": "Jawa Tengah"
+            }
+        ]
+    }
 }
 ```
+### ```GET   /foods?from=```
+#### Response :
+ ```
+ {
+    "status": "success",
+    "data": {
+        "foods": [
+            {
+                "id": "17",
+                "name": "Kunyit Asam",
+                "from": "Jawa Tengah"
+            },
+            {
+                "id": "19",
+                "name": "Lumpia Semarang",
+                "from": "Jawa Timur"
+            },
+            {
+                "id": "8",
+                "name": "Es Dawet",
+                "from": "Jawa Tengah"
+            },
+            ...
+        ]
+    }
+}
+```
+### ```GET   /foods/:foodId```
+#### Response :
+ ```
+{
+    "status": "success",
+    "data": {
+        "food": [
+            {
+                "id": "8",
+                "name": "Es Dawet",
+                "from": "Jawa Tengah",
+                "desc": "Minuman khas Jawa yang terbuat dari tepung beras ataupun tepung beras ketan, disajikan dengan es parut serta gula merah cair dan santan. Rasa minuman ini manis dan gurih.",
+                "source": "https://id.wikipedia.org/wiki/Dawet"
+            }
+        ]
+    }
+}
+```
+## Place
+
+### ```POST   /places```
+ #### Content-Type: application/json
+ #### Body :
+ ```
+{
+    "placeName": "{{placeName}}",
+    "placeImage": "{{placeImage}}",
+    "placeDesc": "{{placeDesc}}",
+    "placeMenu": [
+        {
+            "menuName": "2 Pcs Ayam Betutu + Rice",
+            "menuPrice": "35000"
+        },
+        {
+            "menuName": "2 Pcs Ayam Betutu",
+            "menuPrice": "30000"
+        },
+        {
+            "menuName": "1 Ayam Betutu",
+            "menuPrice": "100000"
+        }
+    ],
+    "contact": "{{contact}}",
+    "lat": "{{lat}}",
+    "lng": "{{lng}}"
+}
+ ```
+  #### Response :
+```
+{
+    "status" : "success"
+    "message" : "food place stored successfully"
+}
+```
+### ```GET   /places```
+ #### Response :
+ ```
+ {
+    "status": "success",
+    "data": {
+        "places": [
+            {
+                "id": "QGzk95ufekaZojUoSyW6",
+                "uid": "4pLM3IMRYVgbaZm9giQYrORuXBT2",
+                "placeName": "Ayam Betutu Pak dadang",
+                "lat": "-6.383480",
+                "lng": "106.974036",
+                "icon": "https://firebasestorage.googleapis.com/v0/b/foedtra-app.appspot.com/o/Location.png?alt=media&token=8ba1d63e-a698-4f39-87cf-4c8b7bd1c01a"
+            }
+        ]
+    }
+}
+```
+### ```GET   /places?name=```
+ #### Response :
+ ```
+ {
+    "status": "success",
+    "data": {
+        "foods": [
+            {
+                "id": "QGzk95ufekaZojUoSyW6",
+                "placeName": "Ayam Betutu Pak dadang",
+                "lat": "-6.383480",
+                "lng": "106.974036"
+            }
+        ]
+    }
+}
+```
+### ```GET   /places/:placeId```
+ #### Response :
+ ```
+ {
+    "status": "success",
+    "data": {
+        "place": [
+            {
+                "id": "QGzk95ufekaZojUoSyW6",
+                "uid": "4pLM3IMRYVgbaZm9giQYrORuXBT2",
+                "placeImage": "https://firebasestorage.googleapis.com/v0/b/foedtra-app.appspot.com/o/Location.png?alt=media&token=8ba1d63e-a698-4f39-87cf-4c8b7bd1c01a",
+                "placeName": "Ayam Betutu Pak dadang",
+                "placeDesc": "Menjual berbagai olahan ayam",
+                "placeMenu": "",
+                "contact"
+                "lat": "-6.383480",
+                "lng": "106.974036"
+            }
+        ]
+    }
+}
+```
+### ```PATCH   /places/:placeId```
+ #### Content-Type: application/json
+ #### Body :
+ ```
+ ```
+ #### Response :
+ ```
+```
+### ```DELETE   /places/:placeId```
 
