@@ -175,7 +175,12 @@ const getFoodPredict = async (req, res) => {
         return a.distance - b.distance;
       });
       allIn['restaurants'] = restaurants;
-      res.send(JSON.stringify(allIn));
+      res.send({
+        name: allIn.namaMakanan,
+        from: allIn.asalProvinsi,
+        desc: allIn.deskripsi,
+        restaurants: allIn.restaurants,
+      });
     }).catch((error) => {
       res.send(error);
     });
