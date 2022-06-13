@@ -10,10 +10,11 @@ EXPOSE ${PORT}
 
 # Copy package.json and install node modules
 COPY package.json .
+RUN npm update
 RUN npm cache clean --force
-RUN npm install
+RUN npm install -g live-server
 
 # Add app source code
 ADD . /usr/src/app
 # Set the entrypoint
-ENTRYPOINT npm run start
+ENTRYPOINT npm start
