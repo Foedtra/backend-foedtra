@@ -11,8 +11,7 @@ EXPOSE ${PORT}
 # Copy package.json and install node modules
 COPY package.json .
 RUN npm cache clean --force
-RUN npm install -g npm
-RUN npm ci
+RUN npm install
 
 # Add app source code
 ADD . /usr/src/app
