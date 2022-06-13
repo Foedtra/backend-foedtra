@@ -3,7 +3,6 @@ const app = express();
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config({path: './.env'});
-const cookieParser = require('cookie-parser')();
 
 const {
   addFood,
@@ -30,7 +29,6 @@ const {
 const bodyParser = require('body-parser');
 
 app.use(cors());
-app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.json({limit: '50mb'}));
