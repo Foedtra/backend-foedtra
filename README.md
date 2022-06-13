@@ -42,64 +42,57 @@ This Repository conatains a Backend Documenation for Foedtra App
 #### Response :
  ```
 {
-    "status" : "success",
-    "data" : {
-        "predict": [
-            {
-                "name": "Kunyit Asam",
-                "from": "Jawa Tengah",
-                "desc": "Jamu Kunyit asam adalah jamu yang berbahan dasar kunyit, dan asam jawa yang konon berkhasiat untuk menyegarkan tubuh atau dapat membuat tubuh menjadi dingin.",
-                "source": "https://id.wikipedia.org/wiki/Kunir_asem",
-                "restaurants": [
-                    {
-                        "name": "Pawon Jawa Timuran",
-                        "geometry": {
-                            "location": {
-                                "lat": -6.3946662,
-                                "lng": 106.9349105
-                            },
-                            "viewport": {
-                                "northeast": {
-                                    "lat": -6.393255820107277,
-                                    "lng": 106.9362566298927
-                                },
-                                "southwest": {
-                                    "lat": -6.395955479892721,
-                                    "lng": 106.9335569701073
-                                }
-                            }
-                        },
-                        "place_id": "ChIJdTMps0-VaS4Rpbh-LKksJIA",
-                        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
-                        "distance": 4.5
-                    },
-                    {
-                        "name": "Filosofi Jamu (Virtual Cafe)",
-                        "geometry": {
-                            "location": {
-                                "lat": -6.3533756,
-                                "lng": 106.9305177
-                            },
-                            "viewport": {
-                                "northeast": {
-                                    "lat": -6.352009120107278,
-                                    "lng": 106.9318745298927
-                                },
-                                "southwest": {
-                                    "lat": -6.354708779892722,
-                                    "lng": 106.9291748701073
-                                }
-                            }
-                        },
-                        "place_id": "ChIJ2-Z2jmqTaS4RlMOmm749ieo",
-                        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
-                        "distance": 5.9
-                    },
-                    ...
-                ]
-            }
-        ]
-    }
+   "asalProvinsi": "Jawa Tengah",
+   "deskripsi": "Jamu Kunyit asam adalah jamu yang berbahan dasar kunyit, dan asam jawa yang konon berkhasiat untuk menyegarkan tubuh atau dapat membuat tubuh menjadi dingin.",
+   "keyword": "kunyit_asam",
+   "linkArtikel": "https://id.wikipedia.org/wiki/Kunir_asem",
+   "namaMakanan": "Kunyit Asam",
+   "restaurants": [
+       {
+           "name": "Pecel Pincuk Bu Ida",
+           "geometry": {
+               "location": {
+                   "lat": -6.352490899999999,
+                   "lng": 106.9639982
+               },
+               "viewport": {
+                   "northeast": {
+                       "lat": -6.351092720107277,
+                       "lng": 106.9653892298927
+                   },
+                   "southwest": {
+                       "lat": -6.353792379892721,
+                       "lng": 106.9626895701073
+                   }
+               }
+           },
+           "place_id": "ChIJ-3ANa6GTaS4R8pAVkcM6z5k",
+           "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+           "distance": 3.6
+       },
+       {
+           "name": "Pawon Jawa Timuran",
+           "geometry": {
+               "location": {
+                   "lat": -6.3946662,
+                   "lng": 106.9349105
+               },
+               "viewport": {
+                   "northeast": {
+                       "lat": -6.393255820107277,
+                       "lng": 106.9362566298927
+                   },
+                   "southwest": {
+                       "lat": -6.395955479892721,
+                       "lng": 106.9335569701073
+                   }
+               }
+           },
+           "place_id": "ChIJdTMps0-VaS4Rpbh-LKksJIA",
+           "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+           "distance": 4.5
+       },
+   ]
 }
 
 ```

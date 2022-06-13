@@ -33,7 +33,13 @@ const addPlace = async (req, res) => {
 
   try {
     await dbPlaces.doc().set(newPlace);
-    res.send('Food place stored successfully');
+    res.send({
+      status: 'success',
+      message: 'Food place stored successfully',
+      data: {
+        place: newPlace,
+      },
+    });
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -51,13 +57,16 @@ const getAllPlace = async (req, res) => {
       });
     });
   }).catch((error) => {
-    return res.status(400).send('Failed to read data', error);
+    return res.status(400).send({
+      status: 'failed',
+      message: 'Failed to read data', error,
+    });
   });
   const filterQuery = (placesQ) => ({
     status: 'success',
     data: {
       foods: placesQ.map((place) => ({
-        id: place.placeId,
+        id: place.id,
         name: place.placeName,
         lat: place.lat,
         lng: place.lng,
@@ -84,9 +93,9 @@ const getAllPlace = async (req, res) => {
           status: 'succes',
           data: {
             places: places.map((places) =>({
-              id: places.placeId,
+              id: places.id,
               uid: places.uid,
-              name: places.placeName,
+              placeName: places.placeName,
               lat: places.lat,
               lng: places.lng,
               icon: places.icon,
@@ -119,7 +128,7 @@ const getDetailPlace = async (req, res, next) => {
             status: 'success',
             data: {
               place: place.map((place) => ({
-                id: place.placeId,
+                id: place.id,
                 uid: place.uid,
                 placeImage: place.placeImage,
                 placeName: place.placeName,
@@ -133,10 +142,13 @@ const getDetailPlace = async (req, res, next) => {
             },
           });
     } else {
-      return res.status(404).send('Place not found !');
+      return res.code(404).send({
+        status: 'failed',
+        message: 'Place not found',
+      });
     }
   }).catch((error) => {
-    return res.status(400).send('Failed to read data', error);
+    return res.status(400).send(error.message);
   });
 };
 
@@ -161,27 +173,51 @@ const editPlace = async (req, res) => {
     lat,
     lng,
   };
-  await dbPlaces.doc(placeId).update(updateContent).then((doc) => {
-    if (doc.exists) {
-      res.status(200).send('Place has been updated :', updateContent);
-    }
-  }).catch((error) => {
-    return res.status(400).send('Failed to update Place', error);
-  });
+  // .where('uid', '==', res.locals.uid)
+  await dbPlaces
+      .doc(placeId)
+      .update(updateContent)
+      .then((doc) => {
+        if (doc.data() == updateContent) {
+          res
+              .status(200)
+              .send({
+                status: 'success',
+                message: 'place has been updated',
+              });
+        } else {
+          return res.status(404).send({
+            status: 'failed',
+            message: 'Place not found !',
+          });
+        }
+      }).catch((error) => {
+        return res.status(400).send(error.message);
+      });
 };
 
 // delete all Place for Admin
 const deletePlace = async (req, res) => {
   const {placeId} = req.params;
-  await dbPlaces.doc(placeId).delete().whe.then((doc) => {
-    if (doc.exists) {
-      return res.code(200).send('Place has been delete');
-    } else {
-      return res.code(404).send('Place not found');
-    }
-  }).catch((error) => {
-    return res.status(400).send('Failed to delete place', error);
-  });
+  await dbPlaces
+      .doc(placeId)
+      .delete()
+      .where('uid', '==', res.locals.uid)
+      .then((doc) => {
+        if (doc.exists) {
+          return res.code(200).send({
+            status: 'success',
+            message: 'Place has been deleted',
+          });
+        } else {
+          return res.code(404).send({
+            status: 'failed',
+            message: 'Place not found',
+          });
+        }
+      }).catch((error) => {
+        return res.status(400).send(error.message);
+      });
 };
 
 // // delete UserPlace
