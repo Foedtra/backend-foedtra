@@ -21,6 +21,11 @@ This Repository conatains a Backend Documenation for Foedtra App
 ## Configure Firestore
 
 ## Deploy
+![Backend Image](https://github.com/Foedtra/PROFILE-C22-PS209-Product-Based-Capstone/blob/main/CC/Frame%2021%20(1).png?raw=true)
+terraform init
+trraform plan
+terraform apply
+
 
 ## Verify Token Firebase Auth
 
