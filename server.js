@@ -3,11 +3,8 @@ const app = express();
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config({path: './.env'});
-// const cookieParser = require('cookie-parser')();
-// const {
-//   createUser,
-//   listAllUsers,
-// } = require('./controllers/userController');
+const cookieParser = require('cookie-parser')();
+
 const {
   addFood,
   getAllFood,
@@ -15,14 +12,11 @@ const {
   getFoodPredict,
 } = require('./controllers/foodController');
 
-// const {auth} = require('./configs/config');
 
 const {
   validateAuthToken,
   // isAuthorized,
 } = require('./middlewares/auth.middleware');
-
-// const authMiddleware = require('./middlewares/auth.middleware');
 
 
 const {
@@ -31,15 +25,13 @@ const {
   getDetailPlace,
   editPlace,
   deletePlace,
-  // getMyPlace,
-  // editMyplace,
-  // deleteMyplace,
 } = require('./controllers/placeController');
 
 
 const bodyParser = require('body-parser');
 
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.json({limit: '50mb'}));
@@ -52,31 +44,9 @@ app.use(bodyParser.urlencoded({
 
 // Auth
 app.use(validateAuthToken);
-
-// app.get('/users',
-//     // isAuthorized({role: ['admin']}),
-//     listAllUsers,
-// ); // Get Users for Only Admins
-// app.post('/users',
-//     isAuthorized({role: ['admin']}),
-//     createUser,
-// ); // Create Users for Only Admins
-// app.get('/users/:id',
-//     isAuthorized({role: ['admin']}),
-// ); // admin and user with same id have access
-// app.patch('/users/:id',
-//     isAuthorized({role: ['admin']}),
-// ); // admin and user with same id have access
-// app.delete('/users/:id',
-//     isAuthorized({role: ['admin']}),
-// ); // admin and user with same id have access
-
 // Food
 app.post('/predict', getFoodPredict);
-app.post('/foods',
-    addFood,
-    // isAuthorized({role: ['admin']}),
-); // Only Admins
+app.post('/foods', addFood);
 app.get('/foods', getAllFood);
 app.get('/foods/:foodId', getDetailFood);
 
@@ -93,16 +63,8 @@ app.patch('/places/:placeId',
 app.delete('/places/:placeId',
     deletePlace);
 
-// MyPlace
-// admin & user with same id have access
-// app.get('/myPlace/:uid', getMyPlace);
-// app.patch('/myPlace/:uid', editMyplace);
-// app.delete('/myPlaces/:uid', deleteMyplace);
-
-// app.use(cookieParser);
 app.get('/hello', (req, res) => {
-  // @ts-ignore
-  res.send(`Hello ${req.user.name}`);
+  res.send(`Hello ${res.locals.name}`);
 });
 
 // server

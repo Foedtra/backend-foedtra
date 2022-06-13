@@ -49,48 +49,7 @@ const validateAuthToken = async (req, res, next) => {
   }
 };
 
-// try {
-//  const decodedToken = await auth.verifyIdToken(authToken);
-//  console.log('Token has been decoded', decodedToken);
-//  req.user = decodedToken;
-//  res.locals = {
-//    ...res.locals,
-//    uid: decodedToken.uid,
-//    role: decodedToken.role,
-//    email: decodedToken.email};
-//  return next();
-// } catch (error) {
-//  console.error(error);
-//  res.status(403).send('Unauthorized');
-//  return;
-// }
-// };
-
-// const isAuthorized = (optionsRole) => {
-//   optionsRole = {hasRole: ['admin' | 'user'], isAllow: Boolean};
-//   return (req, res) => {
-//     const {uid, email, role} = res.locals;
-//     const {id} = req.params;
-
-//     if (email === 'foedtra-root@gmail.com') {
-//       return next();
-//     }
-
-//     if (optionsRole.isAllow && id && uid === id) {
-//       return next();
-//     }
-//     if (!role) {
-//       return res.status(403).send('user doesnt have role');
-//     }
-//     if (optionsRole.optionsRole.includes(role)) {
-//       return next();
-//     }
-//     return res.status(403).send('User Error');
-//   };
-// };
-
 module.exports = {
   validateAuthToken,
-  // isAuthorized,
 };
 

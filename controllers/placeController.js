@@ -29,7 +29,6 @@ const addPlace = async (req, res) => {
     lng,
     icon,
   };
-  // const uid = ;
 
   try {
     await dbPlaces.doc().set(newPlace);
@@ -220,49 +219,6 @@ const deletePlace = async (req, res) => {
       });
 };
 
-// // delete UserPlace
-// const addMyPlace = async (req, res) => {
-//   const {
-//     uid,
-//     placeName,
-//     placeImage,
-//     placeDesc,
-//     placeMenu,
-//     contact,
-//     lat,
-//     lng,
-//   } = req.body;
-
-//   const myPlace = {
-//     uid,
-//     placeName,
-//     placeImage,
-//     placeDesc,
-//     placeMenu,
-//     contact,
-//     lat,
-//     lng,
-//     icon,
-//   };
-// };
-
-// // get UserPlace
-// const getMyPlace = async (req, res) => {
-// const {placeId} = req.params;
-// await dbPlaces.doc()
-// };
-
-// // edit UserPlace
-// const editMyplace = async (req, res) => {
-
-// };
-
-// // delete UserPlace
-// const deleteMyplace = async (req, res) => {
-//   await dbPlaces.doc(placeId).delete();
-//   return res.code(200).send('Data berhasil dihapus');
-// };
-
 
 module.exports = {
   addPlace,
@@ -270,8 +226,4 @@ module.exports = {
   getDetailPlace,
   editPlace,
   deletePlace,
-  // addMyPlace,
-  // getMyPlace,
-  // editMyplace,
-  // deleteMyplace,
 };
