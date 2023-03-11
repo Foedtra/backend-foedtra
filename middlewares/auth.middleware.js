@@ -33,7 +33,6 @@ const validateAuthToken = async (req, res, next) => {
 
   try {
     const decodedToken = await auth.verifyIdToken(authToken);
-    console.log("Token has been decoded", decodedToken);
     req.user = decodedToken;
     res.locals = {
       ...res.locals,

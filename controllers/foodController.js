@@ -1,4 +1,4 @@
-const axios = require("axios");
+const { default: axios } = require("axios");
 const dotenv = require("dotenv");
 const { dbFoods } = require("../configs/config");
 dotenv.config();
@@ -124,63 +124,49 @@ const getDetailFood = async (req, res) => {
 
 // getting Food Predict and Map using Image and location
 const getFoodPredict = async (req, res) => {
-  const { image, lat, lng } = req.body;
-  const apiKey = process.env.API_KEY_MAPS;
-  const apiPredict = {
-    method: "post",
-    url: `${process.env.URL_PREDICT}/predict`, // our ML API
-    data: {
-      image: image,
-    },
-  };
-  await axios(apiPredict)
-    .then((response) => {
-      let allIn = {};
-      const jsonResult = response.data;
-      const foods = jsonResult.prediction;
-      const keyword = foods["keyword"];
-      const mapConfig = {
-        method: "get",
-        url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&keyword=${keyword}&opennow=true&radius=8000&type=restaurant&key=${apiKey}`,
-      };
-      axios(mapConfig)
-        .then((responseMaps) => {
-          allIn = foods;
-          jsonMaps = responseMaps.data.results;
-          restaurants = [];
-          jsonMaps.forEach((resto) => {
-            allResto = {};
-            allResto["name"] = resto.name;
-            allResto["geometry"] = resto.geometry;
-            allResto["place_id"] = resto.place_id;
-            allResto["icon"] = resto.icon;
-            const lat2 = allResto["geometry"]["location"]["lat"];
-            const lng2 = allResto["geometry"]["location"]["lng"];
+  try {
+    const { image, lat, lng } = req.body;
+    const apiKey = process.env.API_KEY_MAPS;
+    const data = { image };
+    const response = await axios.post(
+      `${process.env.URL_PREDICT}/predict`,
+      data
+    );
+    const foods = response.data.prediction;
+    const keyword = foods["keyword"];
+    const mapUrl = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&keyword=${keyword}&opennow=true&radius=8000&type=restaurant&key=${apiKey}`;
+    const responseMaps = await axios.get(mapUrl);
+    let jsonMaps = responseMaps.data.results;
 
-            allResto["distance"] = parseFloat(
-              getDistance(lat, lng, lat2, lng2)
-            );
-            // console.log(distance);
-            restaurants.push(allResto);
-          });
-          restaurants.sort((a, b) => {
-            return a.distance - b.distance;
-          });
-          allIn["restaurants"] = restaurants;
-          res.send({
-            name: allIn.namaMakanan,
-            from: allIn.asalProvinsi,
-            desc: allIn.deskripsi,
-            restaurants: allIn.restaurants,
-          });
-        })
-        .catch((error) => {
-          res.send(error);
-        });
-    })
-    .catch((error) => {
-      res.send(error);
+    let allIn = { ...foods };
+    let restaurants = [];
+    jsonMaps.forEach((resto) => {
+      allResto = {};
+      allResto["name"] = resto.name;
+      allResto["geometry"] = resto.geometry;
+      allResto["place_id"] = resto.place_id;
+      allResto["icon"] = resto.icon;
+      const lat2 = allResto["geometry"]["location"]["lat"];
+      const lng2 = allResto["geometry"]["location"]["lng"];
+
+      allResto["distance"] = parseFloat(getDistance(lat, lng, lat2, lng2));
+      restaurants.push(allResto);
     });
+    restaurants.sort((a, b) => {
+      return a.distance - b.distance;
+    });
+    allIn["restaurants"] = restaurants;
+
+    res.status(200).json({
+      name: allIn.namaMakanan,
+      from: allIn.asalProvinsi,
+      desc: allIn.deskripsi,
+      restaurants: allIn.restaurants,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
 };
 
 const getDistance = (lat1, lng1, lat2, lng2) => {
