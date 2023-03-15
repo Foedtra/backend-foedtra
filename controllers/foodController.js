@@ -157,12 +157,7 @@ const getFoodPredict = async (req, res) => {
     });
     allIn["restaurants"] = restaurants;
 
-    res.status(200).json({
-      name: allIn.namaMakanan,
-      from: allIn.asalProvinsi,
-      desc: allIn.deskripsi,
-      restaurants: allIn.restaurants,
-    });
+    res.status(200).json({ ...allIn });
   } catch (error) {
     console.error(error);
     res.status(500).json(error);
